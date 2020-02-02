@@ -10,6 +10,8 @@
 		C87F4B2423E7996F00EEFB6C /* AWBarChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87F4B1A23E7996F00EEFB6C /* AWBarChart.framework */; };
 		C87F4B2923E7996F00EEFB6C /* AWBarChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F4B2823E7996F00EEFB6C /* AWBarChartTests.swift */; };
 		C87F4B2B23E7996F00EEFB6C /* AWBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = C87F4B1D23E7996F00EEFB6C /* AWBarChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C87F4B3523E7998000EEFB6C /* AWBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F4B3423E7998000EEFB6C /* AWBarChart.swift */; };
+		C87F4B3623E7998000EEFB6C /* AWBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F4B3423E7998000EEFB6C /* AWBarChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,7 @@
 		C87F4B2323E7996F00EEFB6C /* AWBarChartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AWBarChartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C87F4B2823E7996F00EEFB6C /* AWBarChartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWBarChartTests.swift; sourceTree = "<group>"; };
 		C87F4B2A23E7996F00EEFB6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C87F4B3423E7998000EEFB6C /* AWBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWBarChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,7 @@
 			children = (
 				C87F4B1D23E7996F00EEFB6C /* AWBarChart.h */,
 				C87F4B1E23E7996F00EEFB6C /* Info.plist */,
+				C87F4B3423E7998000EEFB6C /* AWBarChart.swift */,
 			);
 			path = AWBarChart;
 			sourceTree = "<group>";
@@ -148,6 +152,7 @@
 				TargetAttributes = {
 					C87F4B1923E7996F00EEFB6C = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 					C87F4B2223E7996F00EEFB6C = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -195,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C87F4B3523E7998000EEFB6C /* AWBarChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C87F4B3623E7998000EEFB6C /* AWBarChart.swift in Sources */,
 				C87F4B2923E7996F00EEFB6C /* AWBarChartTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +347,7 @@
 		C87F4B2F23E7996F00EEFB6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = KB5ZAP8MFS;
@@ -356,6 +364,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ro.tana.AWBarChart;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +373,7 @@
 		C87F4B3023E7996F00EEFB6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = KB5ZAP8MFS;
@@ -388,6 +398,7 @@
 		C87F4B3223E7996F00EEFB6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KB5ZAP8MFS;
 				INFOPLIST_FILE = AWBarChartTests/Info.plist;
@@ -406,6 +417,7 @@
 		C87F4B3323E7996F00EEFB6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KB5ZAP8MFS;
 				INFOPLIST_FILE = AWBarChartTests/Info.plist;
