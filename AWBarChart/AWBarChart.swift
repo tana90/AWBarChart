@@ -22,37 +22,33 @@ public struct GraphData {
 
 open class BarChart: UIView {
     
-    public var data: [GraphData] = [] {
-        didSet {
-            clear()
-            draw(self.bounds)
-        }
-    }
+    public var data: [GraphData] = []
     public var padding: CGFloat = 22
     private var infoLabel: UILabel?
-    
-    
-    
+
     public override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        self.infoLabel = UILabel(frame: rect)
-        self.infoLabel?.textAlignment = .center
-        self.infoLabel?.text = "No data available."
-        self.infoLabel?.textColor = UIColor.gray
-        self.addSubview(self.infoLabel!)
+        
+        if let _ = self.viewWithTag(999) { } else {
+            self.infoLabel = UILabel(frame: rect)
+            self.infoLabel?.tag = 999
+            self.infoLabel?.textAlignment = .center
+            self.infoLabel?.text = "No data available."
+            self.infoLabel?.textColor = UIColor.gray
+            self.infoLabel?.font = UIFont.systemFont(ofSize: 12)
+            self.addSubview(self.infoLabel!)
+        }
         
         self.clipsToBounds = false
-        self.drawBars()
-        self.drawTopLabels()
+        if let context = UIGraphicsGetCurrentContext() {
+            self.drawBars(on: context)
+            self.drawTopLabels(on: context)
+        }
     }
+
     
-    func clear() {
-        let context = UIGraphicsGetCurrentContext()
-        context?.clear(self.bounds)
-    }
-    
-    func drawBars() {
+    private func drawBars(on context: CGContext) {
         self.infoLabel?.alpha = 0.0
         
         // Calculate spacing
@@ -65,16 +61,14 @@ open class BarChart: UIView {
             return
         }
         
-        let context = UIGraphicsGetCurrentContext()
-        context!.setLineWidth(min(offset - padding, 30))
-        context!.setStrokeColor(UIColor(red: 0, green: 150/255, blue: 1, alpha: 1).cgColor)
-        
+        context.setLineWidth(min(offset - padding, 30))
+        context.setStrokeColor(UIColor(red: 0, green: 150/255, blue: 1, alpha: 1).cgColor)
 
         // Calculate max and min
         let max = data.map( { $0.value ?? 1 } ).max() ?? 1
         let min = data.map( { $0.value ?? 1 } ).min() ?? 1
-        let delta = max - min
-
+        let delta = (max - min)
+        
         for index in 0...data.count - 1 {
             
             
@@ -85,23 +79,23 @@ open class BarChart: UIView {
             } else if height > Double(totalHeight - 22) {
                 height = Double(totalHeight - 22)
             }
-
+            
             let x = CGFloat(index) * (offset)
-            
-            context?.move(to: CGPoint(x: x + padding + padding / 4, y: totalHeight))
-            context?.addLine(to: CGPoint(x: x + padding + padding / 4, y: totalHeight - 4))
-            
-            context?.move(to: CGPoint(x: x + padding + padding / 4, y: totalHeight - 4))
-            context?.addLine(to: CGPoint(x: x + padding + padding / 4, y: CGFloat(height + 22)))
-        }
 
-        context!.strokePath()
-    
+            context.move(to: CGPoint(x: x + padding + padding / 4, y: totalHeight))
+            context.addLine(to: CGPoint(x: x + padding + padding / 4, y: totalHeight - 4))
+            
+            context.move(to: CGPoint(x: x + padding + padding / 4, y: totalHeight - 4))
+            context.addLine(to: CGPoint(x: x + padding + padding / 4, y: CGFloat(height + 22)))
+        }
+        
+        context.strokePath()
+        context.closePath()
     }
     
     
     
-    func drawTopLabels() {
+    private func drawTopLabels(on context: CGContext) {
         
         let titleParagraphStyle = NSMutableParagraphStyle()
         titleParagraphStyle.alignment = .left
@@ -118,7 +112,7 @@ open class BarChart: UIView {
             .paragraphStyle: titleParagraphStyle
         ]
         
-
+        
         
         // Calculate spacing
         let totalWidth = self.frame.size.width
@@ -127,8 +121,6 @@ open class BarChart: UIView {
         
         guard data.count > 0 else { return }
         
-        let context = UIGraphicsGetCurrentContext()
-
         // Calculate max and min
         let max = data.map({ $0.value ?? 1 }).max() ?? 1
         let min = data.map({ $0.value ?? 1 }).min() ?? 1
@@ -150,10 +142,10 @@ open class BarChart: UIView {
             if delta == 0 {
                 height = Double(totalHeight - 22)
             }
- 
+            
             let x = CGFloat(index) * (offset)
             let y = CGFloat(height)
-
+            
             let topText = value.minimize()
             let topAttributedString = NSAttributedString(string: topText, attributes: topAttributes)
             let topStringRect = CGRect(x: x + padding / 1.6, y: y, width: 66, height: 30)
@@ -166,8 +158,9 @@ open class BarChart: UIView {
             let bottomStringRect = CGRect(x: x + padding / 1.8, y: totalHeight + 8, width: 66, height: 30)
             bottomAttributedString.draw(in: bottomStringRect)
         }
-
-        context!.strokePath()
+        
+        context.strokePath()
+        context.closePath()
         
     }
 }
