@@ -22,9 +22,15 @@ public struct GraphData {
 
 open class BarChart: UIView {
     
-    public var data: [GraphData] = []
+    public var data: [GraphData] = [] {
+        didSet {
+            clear()
+            draw(self.bounds)
+        }
+    }
     public var padding: CGFloat = 22
     private var infoLabel: UILabel?
+    
     
     
     public override func draw(_ rect: CGRect) {
@@ -39,6 +45,11 @@ open class BarChart: UIView {
         self.clipsToBounds = false
         self.drawBars()
         self.drawTopLabels()
+    }
+    
+    func clear() {
+        let context = UIGraphicsGetCurrentContext()
+        context?.clear(self.bounds)
     }
     
     func drawBars() {
