@@ -12,12 +12,18 @@ public struct GraphData {
     public var title: String?
     public var value: Double?
     public var date: Date?
+    
+    public init(title: String, value: Double, date: Date) {
+        self.title = title
+        self.value = value
+        self.date = date
+    }
 }
 
 open class BarChart: UIView {
     
     public var data: [GraphData] = []
-    private var padding: CGFloat = 22
+    public var padding: CGFloat = 22
     private var infoLabel: UILabel?
     
     
