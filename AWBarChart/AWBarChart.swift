@@ -14,7 +14,7 @@ public struct GraphData {
     public var date: Date?
 }
 
-public final class BarChart: UIView {
+open class BarChart: UIView {
     
     public var data: [GraphData] = []
     private var padding: CGFloat = 22
