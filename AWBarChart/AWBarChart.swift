@@ -9,9 +9,9 @@
 import UIKit
 
 public struct GraphData {
-    var title: String?
-    var value: Double?
-    var date: Date?
+    public var title: String?
+    public var value: Double?
+    public var date: Date?
 }
 
 public final class BarChart: UIView {
