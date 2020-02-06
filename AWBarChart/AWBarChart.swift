@@ -9,13 +9,24 @@
 import UIKit
 
 public struct GraphData {
-    public var title: String?
-    public var value: Double?
-    public var date: Date?
     
-    public init(title: String, value: Double, date: Date) {
+    public var title: String?
+    
+    public var text: String
+    public var value: Double
+    public var textValue: String
+    public var date: Date
+    
+    public init(title: String,
+                text: String,
+                value: Double,
+                textValue: String,
+                date: Date) {
+        
         self.title = title
+        self.text = text
         self.value = value
+        self.textValue = textValue
         self.date = date
     }
 }
@@ -25,7 +36,7 @@ open class BarChart: UIView {
     public var data: [GraphData] = []
     public var padding: CGFloat = 22
     private var infoLabel: UILabel?
-
+    
     public override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -46,7 +57,7 @@ open class BarChart: UIView {
             self.drawTopLabels(on: context)
         }
     }
-
+    
     
     private func drawBars(on context: CGContext) {
         self.infoLabel?.alpha = 0.0
@@ -63,16 +74,16 @@ open class BarChart: UIView {
         
         context.setLineWidth(min(offset - padding, 30))
         context.setStrokeColor(UIColor(red: 0, green: 150/255, blue: 1, alpha: 1).cgColor)
-
+        
         // Calculate max and min
-        let max = data.map( { $0.value ?? 1 } ).max() ?? 1
-        let min = data.map( { $0.value ?? 1 } ).min() ?? 1
+        let max = data.map( { $0.value } ).max() ?? 1
+        let min = data.map( { $0.value } ).min() ?? 1
         let delta = (max - min)
         
         for index in 0...data.count - 1 {
             
             
-            let value = data[index].value ?? 0
+            let value = data[index].value
             var height = ((max - value) * Double(totalHeight)) / delta
             if height < 0 {
                 height = 0
@@ -81,7 +92,7 @@ open class BarChart: UIView {
             }
             
             let x = CGFloat(index) * (offset)
-
+            
             context.move(to: CGPoint(x: x + padding + padding / 4, y: totalHeight))
             context.addLine(to: CGPoint(x: x + padding + padding / 4, y: totalHeight - 4))
             
@@ -122,15 +133,15 @@ open class BarChart: UIView {
         guard data.count > 0 else { return }
         
         // Calculate max and min
-        let max = data.map({ $0.value ?? 1 }).max() ?? 1
-        let min = data.map({ $0.value ?? 1 }).min() ?? 1
+        let max = data.map({ $0.value }).max() ?? 1
+        let min = data.map({ $0.value }).min() ?? 1
         let delta = max - min
         
         for index in 0...data.count - 1 {
             
-            
-            let value = data[index].value ?? 0
-            let title = data[index].title
+            let text = data[index].text
+            let value = data[index].value
+            let textValue = data[index].textValue
             var height = ((max - value) * Double(totalHeight)) / delta
             
             if height < 0 {
@@ -146,14 +157,14 @@ open class BarChart: UIView {
             let x = CGFloat(index) * (offset)
             let y = CGFloat(height)
             
-            let topText = value.minimize()
+            let topText = textValue
             let topAttributedString = NSAttributedString(string: topText, attributes: topAttributes)
             let topStringRect = CGRect(x: x + padding / 1.6, y: y, width: 66, height: 30)
             topAttributedString.draw(in: topStringRect)
             
             
             
-            let bottomText = String(format: "%@", title ?? "Now")
+            let bottomText = String(format: "%@", text)
             let bottomAttributedString = NSAttributedString(string: bottomText, attributes: bottomAttributes)
             let bottomStringRect = CGRect(x: x + padding / 1.8, y: totalHeight + 8, width: 66, height: 30)
             bottomAttributedString.draw(in: bottomStringRect)
