@@ -111,14 +111,14 @@ open class BarChart: UIView {
         let titleParagraphStyle = NSMutableParagraphStyle()
         titleParagraphStyle.alignment = .left
         let topAttributes: [NSAttributedString.Key : Any] = [
-            .font: UIFont.systemFont(ofSize: 11),
+            .font: UIFont.systemFont(ofSize: 11, weight: .medium),
             .foregroundColor: UIColor.black,
             .paragraphStyle: titleParagraphStyle
         ]
         
         
         let bottomAttributes: [NSAttributedString.Key : Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 12),
+            .font: UIFont.systemFont(ofSize: 12, weight: .bold),
             .foregroundColor: UIColor.black,
             .paragraphStyle: titleParagraphStyle
         ]
